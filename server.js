@@ -7,22 +7,22 @@ dotenv.config();
 
 const app = express();
 
-
-const Listing = require("./models/Listing");
-const Booking = require("./models/Booking");
-
-console.log("Listing model loaded:", !!Listing);
-console.log("Booking model loaded:", !!Booking);
-
-
-// Middleware
+// Middleware (must come before routes)
 app.use(cors());
 app.use(express.json());
 
+// Debug: models
+const Listing = require("./models/Listing");
+const Booking = require("./models/Booking");
+console.log("Listing model loaded:", !!Listing);
+console.log("Booking model loaded:", !!Booking);
+
 // Routes
+const authRoutes = require("./routes/authRoutes");
 const listingRoutes = require("./routes/listingRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 
+app.use("/api/auth", authRoutes);
 app.use("/api/listings", listingRoutes);
 app.use("/api/bookings", bookingRoutes);
 

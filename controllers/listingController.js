@@ -1,6 +1,6 @@
 const Listing = require("../models/Listing");
 
-// GET all listings
+// GET all listings (public)
 const getListings = async (req, res) => {
   try {
     const listings = await Listing.find();
@@ -10,7 +10,7 @@ const getListings = async (req, res) => {
   }
 };
 
-// GET single listing by ID
+// GET single listing by ID (public)
 const getListingById = async (req, res) => {
   try {
     const listing = await Listing.findById(req.params.id);
@@ -21,10 +21,20 @@ const getListingById = async (req, res) => {
   }
 };
 
-// POST create a new listing
+// GET logged-in user's listings (protected)
+const getMyListings = async (req, res) => {
+  try {
+    const listings = await Listing.find({ user: req.user });
+    res.json(listings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// POST create a new listing (protected)
 const createListing = async (req, res) => {
   try {
-    const newListing = new Listing(req.body);
+    const newListing = new Listing({ ...req.body, user: req.user });
     const savedListing = await newListing.save();
     res.status(201).json(savedListing);
   } catch (err) {
@@ -32,4 +42,4 @@ const createListing = async (req, res) => {
   }
 };
 
-module.exports = { getListings, getListingById, createListing };
+module.exports = { getListings, getListingById, getMyListings, createListing };

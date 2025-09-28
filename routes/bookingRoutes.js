@@ -1,9 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { createBooking, getBookings } = require("../controllers/bookingController");
+const { getBookings, getMyBookings, createBooking } = require("../controllers/bookingController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-// Routes
-router.post("/", createBooking);   // POST /api/bookings
-router.get("/", getBookings);      // GET /api/bookings
+// Protected: get only logged-in user's bookings
+router.get("/mine", authMiddleware, getMyBookings);
+
+// Protected: create a booking
+router.post("/", authMiddleware, createBooking);
+
+// Optional: get all bookings (public)
+router.get("/", getBookings);
 
 module.exports = router;

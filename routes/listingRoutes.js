@@ -1,10 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { getListings, getListingById, createListing } = require("../controllers/listingController");
+const { getListings, getListingById, createListing, getMyListings } = require("../controllers/listingController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-// Routes
-router.get("/", getListings);           // GET /api/listings
-router.get("/:id", getListingById);    // GET /api/listings/:id
-router.post("/", createListing);       // POST /api/listings
+// Public: get all listings
+router.get("/", getListings);
+
+// Protected: get only logged-in user's listings
+router.get("/mine", authMiddleware, getMyListings);
+
+// Public: get a single listing by ID
+router.get("/:id", getListingById);
+
+// Protected: create listing
+router.post("/", authMiddleware, createListing);
 
 module.exports = router;

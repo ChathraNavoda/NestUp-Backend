@@ -7,8 +7,9 @@ const listingSchema = new mongoose.Schema(
     location: { type: String, required: true },
     image: { type: String, required: true },
     description: { type: String },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // owner
   },
-  { timestamps: true } // automatically adds createdAt and updatedAt
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Listing", listingSchema);
