@@ -29,31 +29,38 @@ const seed = async () => {
 
     // 4. Create listings
     const listings = [
-      {
-        title: "Modern Apartment Downtown",
-        price: 120,
-        location: "City Center",
-        image: "https://picsum.photos/300/200?random=1",
-        description: "A modern, fully-furnished apartment in the heart of the city.",
-        user: user._id,
-      },
-      {
-        title: "Cozy Mountain Cabin",
-        price: 90,
-        location: "Highlands",
-        image: "https://picsum.photos/300/200?random=2",
-        description: "A quiet cabin with breathtaking mountain views.",
-        user: user._id,
-      },
-      {
-        title: "Beachfront Studio",
-        price: 150,
-        location: "Sunny Beach",
-        image: "https://picsum.photos/300/200?random=3",
-        description: "Studio with private balcony facing the sea.",
-        user: user._id,
-      },
-    ];
+  {
+    title: "Modern Apartment Downtown",
+    price: 120,
+    location: "City Center",
+    lat: 6.9271,
+    lng: 79.8612,
+    image: "https://picsum.photos/300/200?random=1",
+    description: "A modern, fully-furnished apartment in the heart of the city.",
+    user: user._id,
+  },
+  {
+    title: "Cozy Mountain Cabin",
+    price: 90,
+    location: "Highlands",
+    lat: 6.9947,
+    lng: 80.7300,
+    image: "https://picsum.photos/300/200?random=2",
+    description: "A quiet cabin with breathtaking mountain views.",
+    user: user._id,
+  },
+  {
+    title: "Beachfront Studio",
+    price: 150,
+    location: "Sunny Beach",
+    lat: 6.4400,
+    lng: 79.9636,
+    image: "https://picsum.photos/300/200?random=3",
+    description: "Studio with private balcony facing the sea.",
+    user: user._id,
+  },
+];
+
 
     const createdListings = await Listing.insertMany(listings);
     console.log("🏠 Listings created");
