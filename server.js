@@ -7,6 +7,14 @@ dotenv.config();
 
 const app = express();
 
+
+const Listing = require("./models/Listing");
+const Booking = require("./models/Booking");
+
+console.log("Listing model loaded:", !!Listing);
+console.log("Booking model loaded:", !!Booking);
+
+
 // Middleware
 app.use(cors());
 app.use(express.json());
