@@ -34,7 +34,20 @@ const getMyListings = async (req, res) => {
 // POST create a new listing (protected)
 const createListing = async (req, res) => {
   try {
-    const newListing = new Listing({ ...req.body, user: req.user });
+    const { title, price, location, lat, lng, image, description, type } = req.body;
+
+    const newListing = new Listing({
+      title,
+      price,
+      location,
+      lat,
+      lng,
+      image,
+      description,
+      type,        // ✅ include type
+      user: req.user,
+    });
+
     const savedListing = await newListing.save();
     res.status(201).json(savedListing);
   } catch (err) {
